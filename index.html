@@ -177,7 +177,31 @@
   .nav-links a:hover{color:var(--yellow)}
   .nav-cta{background:var(--orange);color:#fff;padding:10px 20px;border-radius:999px;font-weight:700;font-size:13px;transition:transform .2s, background .2s}
   .nav-cta:hover{background:var(--orange-deep);transform:translateY(-2px)}
-  @media(max-width:768px){.nav-links{display:none}}
+  .nav-toggle{
+    display:none;background:transparent;border:none;cursor:pointer;
+    padding:8px;margin-left:8px;
+  }
+  .nav-toggle span{
+    display:block;width:26px;height:3px;background:#fff;
+    margin:5px 0;border-radius:2px;transition:all .3s;
+  }
+  .nav-toggle.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .nav-toggle.open span:nth-child(2){opacity:0}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  @media(max-width:900px){
+    .nav-toggle{display:block}
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;gap:0;
+      background:rgba(60,25,8,.97);backdrop-filter:blur(16px);
+      padding:12px 0;border-top:1px solid rgba(255,183,100,.2);
+      transform:translateY(-10px);opacity:0;pointer-events:none;
+      transition:all .25s ease;
+    }
+    .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .nav-links a{padding:14px 24px;font-size:16px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-links a:last-child{border-bottom:none}
+  }
 
   /* HERO */
   .hero{
@@ -534,14 +558,19 @@
       <span class="logo-mark"><img src="fueled-wings-logo-transparent.png" alt="Fueled Wings logo" /></span>
       <span>FUELED WINGS</span>
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="#about">About</a>
       <a href="#menu">Menu</a>
       <a href="#combos">Combos</a>
       <a href="#locations">Locations</a>
       <a href="#franchise">Franchise</a>
     </nav>
-    <a href="#contact" class="nav-cta">Order Now</a>
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="#contact" class="nav-cta">Order Now</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -1141,6 +1170,24 @@
   closeBtn.addEventListener('click',close);
   modal.addEventListener('click',function(e){ if(e.target===modal) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+  // MOBILE NAV TOGGLE
+  var navToggle=document.getElementById('navToggle');
+  var navLinks=document.getElementById('navLinks');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click',function(){
+      var isOpen=navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open',isOpen);
+      navToggle.setAttribute('aria-expanded',isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
 
   // FORM MODAL
   var formModal=document.getElementById('formModal');
