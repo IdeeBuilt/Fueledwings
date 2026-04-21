@@ -7,7 +7,7 @@
 <meta name="description" content="Fueled Wings — Iloilo's go-to unli wings spot. 10+ flavors, combos, chicken burgers, rice meals. Franchise & catering available. #GetFueled" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Montserrat:ital,wght@1,900&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@900&family=Pacifico&display=swap" rel="stylesheet">
 <style>
   :root{
     --orange:#F57C1F;
@@ -140,8 +140,20 @@
   .contact-ic.tk{background:#000}
   .contact-body{flex:1;min-width:0}
   .contact-label{font-size:11px;color:var(--ink-soft);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-  .contact-link{display:block;font-weight:700;color:var(--ink);font-size:15px;text-decoration:none;padding:2px 0}
-  .contact-link:hover{color:var(--orange-deep)}
+  .contact-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-weight:800;color:#fff;font-size:14px;text-decoration:none;
+    background:linear-gradient(135deg,var(--orange),var(--orange-deep));
+    padding:8px 14px;border-radius:999px;margin:3px 6px 3px 0;
+    box-shadow:0 4px 10px rgba(224,98,10,.3);
+    transition:all .2s;
+  }
+  .contact-link::before{content:"📞";font-size:13px}
+  .contact-link:hover, .contact-link:active{
+    transform:translateY(-2px);
+    box-shadow:0 6px 14px rgba(224,98,10,.45);
+    color:#fff;
+  }
   .contact-value{font-weight:700;color:var(--ink);font-size:15px}
 
   /* BRANCH MODAL */
